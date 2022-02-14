@@ -1,0 +1,28 @@
+{
+  "name": "hardhat-tutorial",
+  "version": "1.0.0",
+  "description": "```shell mkdir hardhat-tutorial cd hardhat-tutorial npm init --yes npm install --save-dev hardhat mkdir hardhat-tutorial # Select Create an empty hardhat.config.js with your keyboard and hit enter. npm install --save-dev @nomiclabs/hardhat-ethers ethers @nomiclabs/hardhat-waffle ethereum-waffle chai ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "xuananh",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.4",
+    "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "chai": "^4.3.6",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.5.4",
+    "hardhat": "^2.8.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.2",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0"
+  },
+  "directories": {
+    "test": "test"
+  }
+}
