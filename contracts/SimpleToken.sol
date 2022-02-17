@@ -7,7 +7,7 @@ import "hardhat/console.sol";
 contract SimpleToken {
     // Some string type variables to identify the token.
     // The `public` modifier makes a variable readable from outside the contract.
-    string public name = "Xuan Anh's Simple Token 1";
+    string public name = "Xuan Anh's Simple Token";
     string public symbol = "XAST";
 
     // The fixed amount of tokens stored in an unsigned integer type variable.
