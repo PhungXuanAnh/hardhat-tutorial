@@ -58,3 +58,7 @@ contract XA1CoinERC20 {
         return true;
     }
 }
+
+// rinkeby test net: 0x202A8cCB480b458520c03462f922CC0Ee7ab342A
+// avax test net: 0x5bF8cd4411849385d6245CAF2a10095a86aC93C9
+// local: 0x5FbDB2315678afecb367f032d93F642f64180aa3

@@ -4,14 +4,14 @@ pragma solidity >=0.6.6 <0.9.0;
 import "hardhat/console.sol";
 
 // This is the main building block for smart contracts.
-contract Token {
+contract SimpleToken {
     // Some string type variables to identify the token.
     // The `public` modifier makes a variable readable from outside the contract.
-    string public name = "Xuan Anh's Hardhat Token";
-    string public symbol = "XAT";
+    string public name = "Xuan Anh's Simple Token 1";
+    string public symbol = "XAST";
 
     // The fixed amount of tokens stored in an unsigned integer type variable.
-    uint256 public totalSupply = 1000000;
+    uint256 public totalSupply = 10000000;
 
     // An address type variable is used to store ethereum accounts.
     address public owner;

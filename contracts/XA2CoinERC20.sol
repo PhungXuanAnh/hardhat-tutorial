@@ -58,3 +58,5 @@ contract XA2CoinERC20 {
         return true;
     }
 }
+
+// rinkeby : 0x32D94D19E90F807cDcD0978f56690BCd141046bF
