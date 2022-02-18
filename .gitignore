@@ -2,4 +2,4 @@ cache
 artifacts
 node_modules
 Output.sol
-
+*.pyc
