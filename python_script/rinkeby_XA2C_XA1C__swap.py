@@ -1,11 +1,13 @@
 import json
-from python_script.rinkeby_constant import (
+from rinkeby_constant import (
     w3, UNISWAP_ROUTER_V2_ADDRESS, UNISWAP_FACTORY_ADDRESS,
     XA1C_ADDRESS, XA2C_ADDRESS,
     BlockchainDataJsonEncoder,
-    DEADLINE,
+    DEADLINE, DECIMAL,
     ACCOUNT_2_ADDRESS,
-    ACCOUNT_2_PRIVATE_KEY
+    ACCOUNT_2_PRIVATE_KEY,
+    amount_XA1C_in,
+    amount_XA2C_out_min
 )
 
 # get router
@@ -27,10 +29,7 @@ XA2C = w3.eth.contract(address=XA2C_ADDRESS, abi=ERC20_token_abi)
 # check ACCOUNT 2 give allowance router how many XA1C, XA2C
 
 XA1C_allowance = XA1C.functions.allowance(ACCOUNT_2_ADDRESS, UNISWAP_ROUTER_V2_ADDRESS).call()
-print("account_2 have gave router {} XA1C ".format(XA1C_allowance / 10**2))
-
-XA2C_allowance = XA2C.functions.allowance(ACCOUNT_2_ADDRESS, UNISWAP_ROUTER_V2_ADDRESS).call()
-print("account_2 have gave router {} XA2C ".format(XA2C_allowance / 10**2))
+print("account_2 have gave router {} XA1C ".format(XA1C_allowance / DECIMAL))
 
 # first we need to add account_2 account to default account of web3
 
@@ -39,13 +38,20 @@ w3.eth.default_account = account_2.address
 
 # approve to router spend 1 XA1C
 
-# transaction = XA1C.functions.approve(router_contract.address, 1 * 10**2).buildTransaction()
-# transaction.update({ 'nonce' : w3.eth.get_transaction_count(ACCOUNT_2_ADDRESS) })
-# signed_tx = w3.eth.account.sign_transaction(transaction, ACCOUNT_2_PRIVATE_KEY)
-# txn_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
-# txn_receipt = w3.eth.wait_for_transaction_receipt(txn_hash)
-# print(json.dumps(txn_receipt, indent=4, sort_keys=True, cls=BlockchainDataJsonEncoder))
-  
+if XA1C_allowance < amount_XA1C_in:
+    amount_allowance = amount_XA1C_in - XA1C_allowance
+    transaction = XA1C.functions.approve(router_contract.address, amount_allowance).buildTransaction()
+    transaction.update({ 'nonce' : w3.eth.get_transaction_count(ACCOUNT_2_ADDRESS) })
+    signed_tx = w3.eth.account.sign_transaction(transaction, ACCOUNT_2_PRIVATE_KEY)
+    txn_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    txn_receipt = w3.eth.wait_for_transaction_receipt(txn_hash)
+    print(json.dumps(txn_receipt, indent=4, sort_keys=True, cls=BlockchainDataJsonEncoder))
+    
+# check ACCOUNT 2 give allowance router how many XA1C again
+
+XA1C_allowance = XA1C.functions.allowance(ACCOUNT_2_ADDRESS, UNISWAP_ROUTER_V2_ADDRESS).call()
+print("account_2 have gave router {} XA1C ".format(XA1C_allowance / DECIMAL))
+
 # get pair of XA1C and XA2C
 
 factory_built_file = open('../node_modules/@uniswap/v2-core/build/UniswapV2Factory.json', "r")
@@ -73,24 +79,21 @@ else:
     reverse_XA1C = reverses[1]
     reverse_XA2C = reverses[0]
     
-amount_out = router_contract.functions.getAmountOut(1 * 10**2, reverse_XA1C, reverse_XA2C).call()
-print('reverse XA1C: ', reverse_XA1C / 10**2)
-print('reverse XA2C: ', reverse_XA2C / 10**2)
-print("1 XA1C can swap amount XA2C: ", amount_out / 10**2)
+amount_out = router_contract.functions.getAmountOut(1 * DECIMAL, reverse_XA1C, reverse_XA2C).call()
+print('reverse XA1C: ', reverse_XA1C / DECIMAL)
+print('reverse XA2C: ', reverse_XA2C / DECIMAL)
+print("1 XA1C can swap amount XA2C: ", amount_out / DECIMAL)
 
-amounts_out = router_contract.functions.getAmountsOut(1 * 10**2, [XA1C_ADDRESS, XA2C_ADDRESS]).call()
+amounts_out = router_contract.functions.getAmountsOut(1 * DECIMAL, [XA1C_ADDRESS, XA2C_ADDRESS]).call()
 print(amounts_out)
-# print("1 XA1C can swap amount XA2C: ", amount_out / 10**2)
+# print("1 XA1C can swap amount XA2C: ", amount_out / DECIMAL)
     
 # get current balance of account 2
 
-print('balance XA1C of account 2: ', XA1C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / 10**2)
-print('balance XA2C of account 2: ', XA2C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / 10**2)
+old_XA1C_balance = XA1C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / DECIMAL
+old_XA2C_balance = XA2C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / DECIMAL
 
 # swap exact 1 XA1C for XA2C
-
-amount_XA1C_in = 1 * 10**2  # 1 XA1C
-amount_XA2C_out_min = int(0.1 * 10**2) # 0.1 XA2C
 
 swap_exact_ETH_for_tokens_trans = router_contract.functions.swapExactTokensForTokens(
     amount_XA1C_in,
@@ -118,3 +121,9 @@ signed_tx = w3.eth.account.sign_transaction(swap_exact_ETH_for_tokens_trans, ACC
 txn_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 txn_receipt = w3.eth.wait_for_transaction_receipt(txn_hash)
 print(json.dumps(txn_receipt, indent=4, sort_keys=True, cls=BlockchainDataJsonEncoder))
+
+print("1 XA1C can swap amount XA2C: ", amount_out / DECIMAL)
+print('old balance XA1C of account 2: ', old_XA1C_balance)
+print('old balance XA2C of account 2: ', old_XA2C_balance)
+print('new balance XA1C of account 2: ', XA1C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / DECIMAL)
+print('new balance XA2C of account 2: ', XA2C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / DECIMAL)
