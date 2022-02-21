@@ -1,5 +1,5 @@
 import json
-from constant import (
+from python_script.rinkeby_constant import (
     w3, UNISWAP_ROUTER_V2_ADDRESS, UNISWAP_FACTORY_ADDRESS,
     XA1C_ADDRESS, XA2C_ADDRESS,
     BlockchainDataJsonEncoder,
