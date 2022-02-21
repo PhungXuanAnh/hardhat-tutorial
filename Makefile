@@ -22,6 +22,9 @@ deploy-rinkeby:
 deploy-ropsten:
 	npx hardhat run scripts/deploy.js --network ropsten
 
+deploy-avax-fuji:
+	npx hardhat run scripts/deploy.js --network avalanche_fuji
+
 flatten-all:
 	rm -rf Output.sol
 	npx hardhat flatten > Output.sol

@@ -11,20 +11,22 @@ async function main() {
     console.log("Deploying contracts with the account:", deployer.address);
     console.log("Account balance:", (await deployer.getBalance()).toString());
   
-    const ContractName = "SimpleToken";
-    const Token = await ethers.getContractFactory(ContractName);
-    const token = await Token.deploy();
+    // const ContractName = "SimpleToken";
+    // const Token = await ethers.getContractFactory(ContractName);
+    // const token = await Token.deploy();
     
-    await token.deployed()
-    await hre.ethernal.push({
-      name: ContractName,
-      address: token.address
-    })
+    // await token.deployed()
+    // await hre.ethernal.push({
+    //   name: ContractName,
+    //   address: token.address
+    // })
+
     // const Token = await ethers.getContractFactory("XA1CoinERC20");
     // const token = await Token.deploy(100000);
 
-    // const Token = await ethers.getContractFactory("XA2CoinERC20");
-    // const token = await Token.deploy(100000);
+    const Token = await ethers.getContractFactory("XA2CoinERC20");
+    const token = await Token.deploy(100000);
+    console.log("XA2CoinERC20 address:", token.address);
 
     // const Token1 = await ethers.getContractFactory("ERC20Token1");
     // const token1 = await Token1.deploy();
