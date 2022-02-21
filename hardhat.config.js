@@ -13,7 +13,19 @@ extendEnvironment((hre) => {
 });
 
 module.exports = {
-  solidity: "0.6.6",
+  solidity: {
+    // https://hardhat.org/guides/compile-contracts.html#multiple-solidity-versions
+    // https://hardhat.org/guides/compile-contracts.html
+    compilers: [ 
+      {
+        version: "0.6.6",
+      },
+      {
+        version: "0.8.0",
+        settings: {},
+      },
+    ],
+  },
   networks: {
     local: {
       url: "http://localhost:8545", //Infura url with projectId

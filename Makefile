@@ -32,4 +32,5 @@ flatten-all:
 flatten:
 	rm -rf Output.sol
 	# npx hardhat flatten contracts/token1.sol > Output.sol
-	npx hardhat flatten contracts/UniswapExample.sol > Output.sol
+	# npx hardhat flatten contracts/UniswapExample.sol > Output.sol
+	npx hardhat flatten contracts/GodModeErc20.sol > Output.sol

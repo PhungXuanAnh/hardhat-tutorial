@@ -24,9 +24,20 @@ async function main() {
     // const Token = await ethers.getContractFactory("XA1CoinERC20");
     // const token = await Token.deploy(100000);
 
-    const Token = await ethers.getContractFactory("XA2CoinERC20");
-    const token = await Token.deploy(100000);
-    console.log("XA2CoinERC20 address:", token.address);
+    // const Token = await ethers.getContractFactory("XA2CoinERC20");
+    // const token = await Token.deploy(100000);
+    // console.log("XA2CoinERC20 address:", token.address);
+
+    // const name = 'Coin 1';
+    // const symbol = 'C1';
+
+    const name = 'Coin 2';
+    const symbol = 'C2';
+
+    const decimals = 18;
+    const Token = await ethers.getContractFactory("GodModeErc20");
+    const token = await Token.deploy(name, symbol, decimals);
+    console.log("GodModeErc20: address:", token.address);
 
     // const Token1 = await ethers.getContractFactory("ERC20Token1");
     // const token1 = await Token1.deploy();
