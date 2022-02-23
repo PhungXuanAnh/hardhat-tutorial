@@ -6,8 +6,8 @@ task("deploy", "Deploy a smart contract")
   .addParam("contractName", "contract name to deploy")
   .addOptionalParam("additionParams", "additional parameters to deploy", "nothing")
   .setAction(async (taskArgs, hre, runSuper) => {
-    console.log(taskArgs.contractName);
-    console.log(taskArgs.additionParams);
+    // console.log(taskArgs.contractName);
+    // console.log(taskArgs.additionParams);
     const ethers = hre.ethers;
     const [deployer] = await ethers.getSigners();
     console.log("Deploying contracts with the account:", deployer.address);
@@ -27,7 +27,7 @@ task("deploy", "Deploy a smart contract")
     
     await contract.deployed()
     console.log("============ Deploy done ==========");
-    
+
     await hre.ethernal.push({
       name: contractName,
       address: contract.address
