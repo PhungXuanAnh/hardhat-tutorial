@@ -1,11 +1,22 @@
-// const json = require('@uniswap/v2-core/build/UniswapV2Factory.json')
-// const contract = require('@hardhat/contract');
-// const UniswapV2Factory = contract(json);
-const ethernal = require('hardhat-ethernal');
+// We require the Hardhat Runtime Environment explicitly here. This is optional
+// but useful for running the script in a standalone fashion through `node <script>`.
+//
+// When running the script with `npx hardhat run <script>` you'll find the Hardhat
+// Runtime Environment's members available in the global scope.
+
 const hre = require("hardhat");
-const { ethers } = require("hardhat");  // The ethers variable is available in the global scope. If you like your code always being explicit
+const ethers = hre.ethers;
+
 
 async function main() {
+
+  // Hardhat always runs the compile task when running scripts with its command
+  // line interface.
+  //
+  // If this script is run directly using `node` you may want to call compile
+  // manually to make sure everything is compiled
+  // await hre.run('compile');
+
     const [deployer] = await ethers.getSigners();
   
     console.log("Deploying contracts with the account:", deployer.address);
@@ -31,13 +42,18 @@ async function main() {
     // const name = 'Coin 1';
     // const symbol = 'C1';
 
-    const name = 'Coin 2';
-    const symbol = 'C2';
+    // const name = 'Coin 2';
+    // const symbol = 'C2';
 
-    const decimals = 18;
-    const Token = await ethers.getContractFactory("GodModeErc20");
-    const token = await Token.deploy(name, symbol, decimals);
-    console.log("GodModeErc20: address:", token.address);
+    // const decimals = 18;
+    // const Token = await ethers.getContractFactory("GodModeErc20");
+    // const token = await Token.deploy(name, symbol, decimals);
+    // console.log("GodModeErc20: address:", token.address);
+
+    // const C2_ADDRESS = "0xc725f6243562C445b0352fc9Db99Ec17EB0Ad393"
+    // const Token1 = await ethers.getContractFactory("TestContract");
+    // const token1 = await Token1.deploy(C2_ADDRESS);
+    // console.log("TestContract address:", token1.address);
 
     // const Token1 = await ethers.getContractFactory("ERC20Token1");
     // const token1 = await Token1.deploy();

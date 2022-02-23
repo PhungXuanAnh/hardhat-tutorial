@@ -33,4 +33,11 @@ flatten:
 	rm -rf Output.sol
 	# npx hardhat flatten contracts/token1.sol > Output.sol
 	# npx hardhat flatten contracts/UniswapExample.sol > Output.sol
-	npx hardhat flatten contracts/GodModeErc20.sol > Output.sol
+	# npx hardhat flatten contracts/GodModeErc20.sol > Output.sol
+	npx hardhat flatten contracts/TestContract.sol > Output.sol
+
+deploy-XA1CoinERC20:
+	npx hardhat deploy --contract-name XA1CoinERC20 --addition-params 100000
+
+deploy-GodModeErc20:
+	npx hardhat deploy --contract-name GodModeErc20 --addition-params "Coin1 C1 18"   
