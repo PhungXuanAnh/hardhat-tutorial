@@ -6,6 +6,7 @@ from rinkeby_constant import (
     DEADLINE, DECIMAL,
     ACCOUNT_2_ADDRESS,
     ACCOUNT_2_PRIVATE_KEY,
+    ACCOUNT_3_ADDRESS,
     amount_XA1C_in,
     amount_XA2C_out_min
 )
@@ -94,12 +95,14 @@ old_XA1C_balance = XA1C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / DECIMAL
 old_XA2C_balance = XA2C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / DECIMAL
 
 # swap exact 1 XA1C for XA2C
-
+# to = ACCOUNT_2_ADDRESS
+# to = ACCOUNT_3_ADDRESS
+to = "0x5736664454591251E3204e932408a4A52283E247"
 swap_exact_ETH_for_tokens_trans = router_contract.functions.swapExactTokensForTokens(
     amount_XA1C_in,
     amount_XA2C_out_min,
     [XA1C_ADDRESS, XA2C_ADDRESS],
-    ACCOUNT_2_ADDRESS,
+    to,
     DEADLINE
 ).buildTransaction({
     'from': ACCOUNT_2_ADDRESS,   # You are not specifying the from, so the default account is used. 
@@ -127,3 +130,5 @@ print('old balance XA1C of account 2: ', old_XA1C_balance)
 print('old balance XA2C of account 2: ', old_XA2C_balance)
 print('new balance XA1C of account 2: ', XA1C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / DECIMAL)
 print('new balance XA2C of account 2: ', XA2C.functions.balanceOf(ACCOUNT_2_ADDRESS).call() / DECIMAL)
+print('new balance XA1C of account 3: ', XA1C.functions.balanceOf(ACCOUNT_3_ADDRESS).call() / DECIMAL)
+print('new balance XA2C of account 3: ', XA2C.functions.balanceOf(ACCOUNT_3_ADDRESS).call() / DECIMAL)

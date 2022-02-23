@@ -39,5 +39,8 @@ flatten:
 deploy-XA1CoinERC20:
 	npx hardhat deploy --contract-name XA1CoinERC20 --addition-params 100000
 
-deploy-GodModeErc20:
-	npx hardhat deploy --contract-name GodModeErc20 --addition-params "Coin1 C1 18"   
+deploy-GodModeErc20-C1:
+	npx hardhat deploy --contract-name GodModeErc20 --addition-params "Coin1 C1 18"
+
+deploy-GodModeErc20-C2:
+	npx hardhat deploy --contract-name GodModeErc20 --addition-params "Coin2 C2 18"
