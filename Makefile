@@ -33,8 +33,8 @@ flatten:
 	rm -rf Output.sol
 	# npx hardhat flatten contracts/token1.sol > Output.sol
 	# npx hardhat flatten contracts/UniswapExample.sol > Output.sol
-	# npx hardhat flatten contracts/GodModeErc20.sol > Output.sol
-	npx hardhat flatten contracts/TestContract.sol > Output.sol
+	npx hardhat flatten contracts/GodModeErc20.sol > Output.sol
+	# npx hardhat flatten contracts/TestContract.sol > Output.sol
 
 deploy-XA1CoinERC20:
 	npx hardhat deploy --contract-name XA1CoinERC20 --addition-params 100000
@@ -44,3 +44,14 @@ deploy-GodModeErc20-C1:
 
 deploy-GodModeErc20-C2:
 	npx hardhat deploy --contract-name GodModeErc20 --addition-params "Coin2 C2 18"
+
+deploy-GodModeErc20-USDT-fuji:	# 0x6e8093c82e167F1496E191c28Bd3c9ecEe87399C
+	npx hardhat deploy --network avalanche_fuji \
+		--contract-name GodModeErc20 \
+		--addition-params "xuananh-USDT USDT 18"
+
+deploy-GodModeErc20-LIFE-fuji: # 0x721d9B2E7C14fE892B712E09d926719e023BFCaE
+	npx hardhat deploy --network avalanche_fuji \
+		--contract-name GodModeErc20 \
+		--addition-params "xuananh-LIFE LIFE 18"
+		
